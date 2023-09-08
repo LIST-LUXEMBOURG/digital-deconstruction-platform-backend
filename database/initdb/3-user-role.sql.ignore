@@ -1,0 +1,20 @@
+/*
+ *   Copyright (c) 2021 Luxembourg Institute of Science and Technology
+ *   All rights reserved.
+ *   See License in the LICENSE file
+ */
+CREATE TABLE user_role (
+  "userId" INT NOT NULL,
+  "roleId" INT NOT NULL,
+  PRIMARY KEY ("userId", "roleId")
+);
+--
+-- Dumping data for table user_role
+--
+INSERT INTO user_role ("userId", "roleId")
+VALUES (1, 1),
+  (2, 1),
+  (3, 4),
+  (4, 5),
+  (5, 6)
+  

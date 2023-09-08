@@ -1,0 +1,52 @@
+version: '3'
+
+services:
+  frontend:
+    image: frontend:latest
+    ports:
+      - 8080:80
+    networks:
+      - backend
+    environment:
+      - VUE_APP_I18N_LOCALE=en
+      - VUE_APP_I18N_FALLBACK_LOCALE=en
+      - VUE_APP_HATCH_BACKEND_URL=http:/backend
+      - VUE_APP_HATCH_BACKEND_PORT=3000
+
+  redis:
+    image: redis:alpine
+    ports:
+      - 6379:6379
+    networks:
+      - backend
+
+  db:
+    image: postgres:14-alpine
+    restart: unless-stopped
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=Passw0rd!
+      - POSTGRES_DB=ddc_db
+      - POSTGRES_INITDB_ARGS="--auth-host=trust"
+    volumes:
+      - ./database/initdb/:/docker-entrypoint-initdb.d/
+    networks:
+      - backend
+
+  backend:
+    image: backend:latest
+    ports:
+      - 3000:3000
+      - 4000:4000
+      - 4100:4100
+    networks:
+      - backend
+    volumes:
+      - .env:/usr/src/app/.env
+      - ./ormconfig.json:/usr/src/app/ormconfig.json
+
+networks:
+  backend:
+    driver: bridge

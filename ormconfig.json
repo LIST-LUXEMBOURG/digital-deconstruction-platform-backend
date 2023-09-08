@@ -1,0 +1,22 @@
+[
+    {
+        "name": "default",
+        "type": "postgres",
+        "host": "localhost",
+        "port": 5432,
+        "username": "ddc_user",
+        "password": "ddc_password",
+        "database": "ddc_db",
+        "entities": [
+            "dist/**/*.entity.js"
+        ],
+        "migrations": [
+            "dist/migration/*.js"
+        ],
+        "seeds": [
+            "dist/src/seeding/**/*.js"
+        ],
+        "synchronize": false,
+        "migrationsRun": true
+    }
+]

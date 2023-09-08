@@ -1,0 +1,59 @@
+/*
+ *   Copyright (c) 2021 Luxembourg Institute of Science and Technology
+ *   All rights reserved.
+ *   See License in the LICENSE file
+ */
+DROP TABLE IF EXISTS role;
+DROP SEQUENCE IF EXISTS role_seq;
+CREATE SEQUENCE role_seq;
+CREATE TABLE role (
+  id int NOT NULL DEFAULT NEXTVAL ('role_seq'),
+  name VARCHAR (255) UNIQUE NOT NULL,
+  "longName" VARCHAR (255) NOT NULL,
+  description VARCHAR (255) NOT NULL,
+  PRIMARY KEY (id),
+  CONSTRAINT unique_role_name UNIQUE (name)
+);
+ALTER SEQUENCE role_seq RESTART WITH 4;
+--
+-- Dumping data for table role
+--
+INSERT INTO role (id, name, "longName", description)
+VALUES (
+    1,
+    'UserAdmin',
+    'User administrator',
+    'An administrator who can create and update users as well as block, unblock and disconnect them. He can also assign roles to users.'
+  ),
+  (
+    2,
+    'BasicUser',
+    'Basic User',
+    'The default user role who can access DDC projects in which he is involve - as an owner, contributor or guest.'
+  ),
+  (
+    3,
+    'Guest',
+    'Guest',
+    'Obsolete role. 
+    Will be discontinued in a future release.
+    DON''T USE IT ANYMORE!'
+  ),
+  (
+    4,
+    'SysAdmin',
+    'System administrator',
+    'A system administrator has access to system critical resources, such as roles and access rights. He manages system preferences and can, in general, perform system critical operations.'
+  ),
+  (
+    5,
+    'ProjectAdministrator',
+    'Project administrator',
+    'Creates and initializes DDC projects, and in general can do whatever a project owner does, but for all projects. He can also delete projects and assign a new owner to any project.'
+  ),
+  (
+    6,
+    'ProjectManager',
+    'Project manager',
+    'Creates new deconstruction projects. By doing so, he becomes the new project’s initial owner. As project owner he can do all kind of project management activities, which are nevertheless limited to his own projects.'
+  );

@@ -1,0 +1,96 @@
+/*
+ *   Copyright (c) 2021 Luxembourg Institute of Science and Technology
+ *   All rights reserved.
+ *   See License in the LICENSE file
+ */
+DROP TABLE IF EXISTS "user";
+CREATE TABLE "user" (
+  id SERIAL PRIMARY KEY,
+  login VARCHAR (255) UNIQUE NOT NULL,
+  "password" VARCHAR (512) NOT NULL,
+  salt VARCHAR (512) UNIQUE NOT NULL,
+  name VARCHAR (255) NOT NULL,
+  "firstName" VARCHAR (255) NOT NULL,
+  email VARCHAR (255) DEFAULT NULL,
+  active BOOLEAN NOT NULL DEFAULT '1',
+  blocked BOOLEAN NOT NULL DEFAULT '0',
+  "blockingReason" VARCHAR(512) DEFAULT NULL
+);
+--
+-- Dumping data for table user
+-- password: "#pwd %" where % is the login substring, every letters after the dash
+-- Example: "user-e": "#pwd e", "user-ae": "#pwd ae"
+--
+INSERT INTO "user" (
+    id,
+    "login",
+    "password",
+    salt,
+    "name",
+    "firstName",
+    email,
+    active,
+    blocked,
+    "blockingReason"
+  )
+VALUES (
+    1,
+    'admin',
+    'H4sIAAAAAAAAAwEgAN//cr2FuZMZC/nLPdv5ixwR9g2/OBwnIf7Vgcx11dE/hbd2683yIAAAAA==',
+    '9253a105c73ff5ae',
+    'admin',
+    'admin',
+    'admin@list.lu',
+    '1',
+    '0',
+    NULL
+  ),
+  
+  (
+    2,
+    'userAdmin',
+    'H4sIAAAAAAAAAxOPqbX833/olrncU2/D6nIJ36YZMxrX/MyRUFm6Z3uhkycApr05pyAAAAA=',
+    'b6e31b7e30fa07b9',
+    'Administrator',
+    'User',
+    'user.admin@list.lu',
+    '1',
+    '0',
+    NULL
+  ),
+  (
+    3,
+    'sysAdmin',
+    'H4sIAAAAAAAAAwEgAN//lZbW57UoDd4pd1HQTVXOcCOuothGmCr2eZVNi6qzUUZK8riMIAAAAA==',
+    'a4664d12926402b0',
+    'Manager',
+    'System',
+    'sysadmin@list.lu',
+    '1',
+    '0',
+    NULL
+  ),
+  (
+    4,
+    'projectAdmin',
+    'H4sIAAAAAAAAAwEgAN//XfPRyCKUaEcHPAbIU7D71rGKg34H1gl0NuLKWqKZmLpgoCEoIAAAAA==',
+    '8c5b01df6ce51d48',
+    'Administrator',
+    'Project',
+    'project.administrator@list.lu',
+    '1',
+    '0',
+    NULL
+  ),
+  (
+    5,
+    'projectMan',
+    'H4sIAAAAAAAAA7v1YqddVKToyyb3ohvymedkY7yqg2NqMgyPTlOO+rr2xRkAbxa+7SAAAAA=',
+    'f996dac36fa56f5f',
+    'Manager',
+    'Project',
+    'project.manager@list.lu',
+    '1',
+    '0',
+    NULL
+  );
